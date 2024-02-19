@@ -7,7 +7,7 @@ https://github.com/stadium-software/multicolumn-checkboxlist/assets/2085324/9a33
 
 
 ## Description
-Sometimes we want to display a checkbox list with a large number of items. Finding and selecting items in such a list is easier when the items are in multiple columns because users don't have to scroll as much. The module below will display the CheckBoxlist in as many columns as will fit into it's container. 
+Sometimes we want to display a checkbox list with a large number of items. Finding and selecting items in such a list is easier when the items are in multiple columns because users don't have to scroll as much. This module displays the CheckBoxlist in as many columns as will fit into it's container. 
 
 
 ## Version 
@@ -25,7 +25,7 @@ Sometimes we want to display a checkbox list with a large number of items. Findi
 3. Drag a *JavaScript* action into the script
 4. Add the Javascript below into the JavaScript code property
 ```javascript
-/* Stadium Script Version 1.0 */
+/* Stadium Script Version 1.0 https://github.com/stadium-software/multicolumn-checkboxlist */
 let checkboxContainerClass = ~.Parameters.Input.ClassName;
 let checkboxContainer = document.querySelector("." + checkboxContainerClass);
 let setupCheckboxList = () => {
