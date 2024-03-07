@@ -1,0 +1,7 @@
+.check-box-list-container.multi-column-display > div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    visibility: hidden;
+    height: var(--checkboxlist-minimum-height);
+}

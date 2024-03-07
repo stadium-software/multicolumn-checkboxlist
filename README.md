@@ -1,66 +1,85 @@
-# Multicolumn CheckBoxlist
+# Multicolumn CheckBoxList
 
-A module to change the default CheckBoxList display from single column to a multi-column. 
-
+A module to change the CheckBoxList display from a single column to multiple columns. 
 
 https://github.com/stadium-software/multicolumn-checkboxlist/assets/2085324/9a333f8e-e835-444e-825b-0d60fea534c8
 
-
 ## Description
-Sometimes we want to display a checkbox list with a large number of items. Finding and selecting items in such a list is easier when the items are in multiple columns because users don't have to scroll as much. This module displays the CheckBoxlist in as many columns as will fit into it's container. 
-
+Sometimes we want to display a checkbox list with a large number of items. Finding and selecting items in such a list is easier for the user. This module displays the CheckBoxlist in as many columns as will fit into it's container. 
 
 ## Version 
 1.0 - initial
+1.1 - rewrite from row to column display
 
 # Setup
 
 ## Application Setup
 1. Check the *Enable Style Sheet* checkbox in the application properties
 
-## Global Script Setup
+### Global Script Setup
 1. Create a Global Script called "MultiColumnCheckboxList"
-2. Add the input parameters below to the Global Script
-   1. ClassName
-3. Drag a *JavaScript* action into the script
-4. Add the Javascript below into the JavaScript code property
+2. Drag a *JavaScript* action into the script
+3. Add the Javascript below into the JavaScript code property
 ```javascript
-/* Stadium Script Version 1.0 https://github.com/stadium-software/multicolumn-checkboxlist */
-let checkboxContainerClass = ~.Parameters.Input.ClassName;
-let checkboxContainer = document.querySelector("." + checkboxContainerClass);
-let setupCheckboxList = () => {
-    let wdth = 0;
-    let sheetid = checkboxContainerClass + "-sheet";
-    let sheet = document.getElementById(sheetid);
-    if (!sheet) { 
-        sheet = document.createElement('style');
-        sheet.type = "text/css";
-        sheet.id = sheetid;
-        document.head.appendChild(sheet);
-    }
-    sheet.innerHTML = "";
-    let checkboxes = checkboxContainer.querySelectorAll(".checkbox");
-    for (let i=0;i<checkboxes.length;i++) {
-        if (checkboxes[i].getBoundingClientRect().width > wdth) {
-            wdth = checkboxes[i].getBoundingClientRect().width;
-        }
-    }
-    sheet.innerHTML = "." + checkboxContainerClass + " {width: 100%; & .error-border {width: 100%;display: grid;grid-template-columns: repeat(auto-fill, minmax(" + Math.floor(wdth) + "px, 1fr));}}";
-    observer.observe(checkboxContainer, options);
+/* Stadium Script v1.1 - see https://github.com/stadium-software/multicolumn-checkboxlist */
+let checkboxLists = document.querySelectorAll(".multi-column-display");
+let isOverflowX = (element) => {
+    return element.scrollWidth != Math.max(element.offsetWidth, element.clientWidth);
 };
 let options = {
     childList: true,
     subtree: true,
-},
-observer = new MutationObserver(setupCheckboxList);
-setupCheckboxList();
+};
+let listsSetup = () => {
+    for (let i = 0; i < checkboxLists.length; i++) {
+        let observer = new MutationObserver(listsSetup);
+        observer.disconnect();
+        let checkBoxList = checkboxLists[i].children[0];
+        let boundingClientRect = checkBoxList.getBoundingClientRect();
+        if (isOverflowX(checkBoxList)) {
+            do {
+                checkBoxList.style.height = boundingClientRect.height + 34 * 3 + "px";
+                boundingClientRect = checkBoxList.getBoundingClientRect();
+            } while (isOverflowX(checkBoxList));
+            do {
+                checkBoxList.style.height = boundingClientRect.height - 1 + "px";
+                boundingClientRect = checkBoxList.getBoundingClientRect();
+            } while (!isOverflowX(checkBoxList));
+            checkBoxList.style.height = boundingClientRect.height + 1 + "px";
+            checkBoxList.style.visibility = "visible";
+        }
+        observer.observe(checkBoxList, options);
+    }
+};
+listsSetup();
 ```
 
 ## Page Setup
 1. Drag a *CheckBoxlist* control to a page 
-2. Add a class to the *CheckBoxlist* classes property to uniquely identify the control (e.g. multi-column-display)
+2. Add the class "multi-column-display" to the *CheckBoxlist* classes property
 3. Assign items to the CheckBoxList as you normally would
 
 ## Page.Load Setup
 1. Drag the Global Script called "MultiColumnCheckboxList" into the Page.Load event handler
-2. Enter the classname you added to the *CheckBoxlist* in the "ClassName" input parameter field (e.g. multi-column-display)
+
+# Styling
+The initial height of the checkbox lists can be defined
+
+## Applying the CSS
+
+**Stadium 6.6 or higher**
+1. Create a folder called "CSS" inside of your Embedded Files in your application
+2. Drag the two CSS files from this repo [*checkboxlist-columns-variables.css*](checkboxlist-columns-variables.css) and [*checkboxlist-columns.css*](checkboxlist-columns.css) into that folder
+3. Paste the link tags below into the *head* property of your application
+```html
+<link rel="stylesheet" href="{EmbeddedFiles}/CSS/checkboxlist-columns.css">
+<link rel="stylesheet" href="{EmbeddedFiles}/CSS/checkboxlist-columns-variables.css">
+``` 
+
+## Customising CSS
+1. Open the CSS file called [*checkboxlist-columns-variables.css*](checkboxlist-columns-variables.css) from this repo
+2. Adjust the variables in the *:root* element as you see fit
+3. Overwrite the file in the CSS folder of your application with the customised file
+
+## CSS Upgrading
+To upgrade the CSS in this module, follow the [steps outlined in this repo](https://github.com/stadium-software/samples-upgrading)
