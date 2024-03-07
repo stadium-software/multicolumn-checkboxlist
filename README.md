@@ -24,7 +24,7 @@ Sometimes we want to display a checkbox list with a large number of items. Findi
 ```javascript
 /* Stadium Script v1.1 - see https://github.com/stadium-software/multicolumn-checkboxlist */
 let checkboxLists = document.querySelectorAll(".multi-column-display");
-let initialHeight = 100;
+let initialHeight = 34;
 if (checkboxLists) initialHeight = window.getComputedStyle(checkboxLists[0]).getPropertyValue("height").replace("px", "");
 let isOverflowX = (element) => {
     return element.scrollWidth != Math.max(element.offsetWidth, element.clientWidth);
@@ -42,7 +42,7 @@ let listsSetup = () => {
         if (boundingClientRect.height != initialHeight) checkBoxList.style.height = initialHeight + "px";
         if (isOverflowX(checkBoxList)) {
             do {
-                checkBoxList.style.height = boundingClientRect.height + 34 * 3 + "px";
+                checkBoxList.style.height = boundingClientRect.height + initialHeight * 3 + "px";
                 boundingClientRect = checkBoxList.getBoundingClientRect();
             } while (isOverflowX(checkBoxList));
             do {
@@ -56,13 +56,7 @@ let listsSetup = () => {
     }
 };
 listsSetup();
-window.addEventListener(
-    "resize",
-    () => {
-        listsSetup();
-    },
-    true
-);
+window.addEventListener("resize", () => {listsSetup();},true);
 ```
 
 ## Page Setup
