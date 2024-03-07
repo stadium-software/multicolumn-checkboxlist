@@ -2,7 +2,7 @@
 
 A module to change the CheckBoxList display from a single column to multiple columns. 
 
-https://github.com/stadium-software/multicolumn-checkboxlist/assets/2085324/9a333f8e-e835-444e-825b-0d60fea534c8
+https://github.com/stadium-software/multicolumn-checkboxlist/assets/2085324/f4ad2d2d-e733-4bae-9c52-c64b5da754f3
 
 ## Description
 Sometimes we want to display a checkbox list with a large number of items. Finding and selecting items in such a list is easier for the user. This module displays the CheckBoxlist in as many columns as will fit into it's container. 
