@@ -9,6 +9,7 @@ Sometimes we want to display a checkbox list with a large number of items. Findi
 
 ## Version 
 1.0 - initial
+
 1.1 - rewrite from row to column display
 
 # Setup
