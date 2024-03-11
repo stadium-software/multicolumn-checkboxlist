@@ -50,7 +50,6 @@ let listsSetup = () => {
                 boundingClientRect = checkBoxList.getBoundingClientRect();
             } while (!isOverflowX(checkBoxList));
             checkBoxList.style.height = boundingClientRect.height + 1 + "px";
-            checkBoxList.style.visibility = "visible";
         }
         observer.observe(checkBoxList, options);
     }
