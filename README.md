@@ -66,10 +66,8 @@ window.addEventListener("resize", () => {listsSetup();},true);
 ## Page.Load Setup
 1. Drag the Global Script called "MultiColumnCheckboxList" into the Page.Load event handler
 
-# Styling
-The initial height of the checkbox lists can be defined
-
 ## Applying the CSS
+The CSS below is required for the correct functioning of the module. Some elements can be [customised](#customising-css) using a variables CSS file. The initial height of the checkbox lists can be defined
 
 **Stadium 6.6 or higher**
 1. Create a folder called "CSS" inside of your Embedded Files in your application
