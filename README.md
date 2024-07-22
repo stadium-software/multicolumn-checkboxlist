@@ -8,9 +8,11 @@ https://github.com/stadium-software/multicolumn-checkboxlist/assets/2085324/f4ad
 Sometimes we want to display a checkbox list with a large number of items. Finding and selecting items in such a list is easier for the user. This module displays the CheckBoxlist in as many columns as will fit into it's container. 
 
 ## Version 
-1.0 - initial
+Current version 1.2
 
 1.1 - rewrite from row to column display
+
+1.2 Changed items container selection method to support checkbox list filter module (https://github.com/stadium-software/checkbox-list-filter)
 
 # Setup
 
@@ -22,7 +24,7 @@ Sometimes we want to display a checkbox list with a large number of items. Findi
 2. Drag a *JavaScript* action into the script
 3. Add the Javascript below into the JavaScript code property
 ```javascript
-/* Stadium Script v1.1 - see https://github.com/stadium-software/multicolumn-checkboxlist */
+/* Stadium Script v1.2 - see https://github.com/stadium-software/multicolumn-checkboxlist */
 let checkboxLists = document.querySelectorAll(".multi-column-display");
 let initialHeight = 34;
 if (checkboxLists) initialHeight = window.getComputedStyle(checkboxLists[0]).getPropertyValue("height").replace("px", "");
@@ -37,7 +39,8 @@ let listsSetup = () => {
     for (let i = 0; i < checkboxLists.length; i++) {
         let observer = new MutationObserver(listsSetup);
         observer.disconnect();
-        let checkBoxList = checkboxLists[i].children[0];
+        let containerID = checkboxLists[i].id.replace("-container", "-items");
+        let checkBoxList = document.getElementById(containerID);
         let boundingClientRect = checkBoxList.getBoundingClientRect();
         if (boundingClientRect.height != initialHeight) checkBoxList.style.height = initialHeight + "px";
         if (isOverflowX(checkBoxList)) {
@@ -55,7 +58,13 @@ let listsSetup = () => {
     }
 };
 listsSetup();
-window.addEventListener("resize", () => {listsSetup();},true);
+window.addEventListener(
+    "resize",
+    () => {
+        listsSetup();
+    },
+    true
+);
 ```
 
 ## Page Setup

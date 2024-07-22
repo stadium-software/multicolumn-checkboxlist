@@ -1,4 +1,4 @@
-.check-box-list-container.multi-column-display > div {
+.check-box-list-container.multi-column-display > div.error-border {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
