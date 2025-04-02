@@ -14,6 +14,8 @@ Current version 1.2
 
 1.2 Changed items container selection method to support checkbox list filter module (https://github.com/stadium-software/checkbox-list-filter)
 
+1.2.1 Changed px to rem; updated sample to remove duplicates
+
 # Setup
 
 ## Application Setup
@@ -22,7 +24,7 @@ Current version 1.2
 ### Global Script Setup
 1. Create a Global Script called "MultiColumnCheckboxList"
 2. Drag a *JavaScript* action into the script
-3. Add the Javascript below into the JavaScript code property
+3. Add the Javascript below unchanged into the JavaScript code property
 ```javascript
 /* Stadium Script v1.2 - see https://github.com/stadium-software/multicolumn-checkboxlist */
 let checkboxLists = document.querySelectorAll(".multi-column-display");
@@ -91,6 +93,7 @@ The CSS below is required for the correct functioning of the module. Some elemen
 1. Open the CSS file called [*checkboxlist-columns-variables.css*](checkboxlist-columns-variables.css) from this repo
 2. Adjust the variables in the *:root* element as you see fit
 3. Overwrite the file in the CSS folder of your application with the customised file
+4. Do not change any CSS other than the variables provided in the *-variables.css file
 
 ## CSS Upgrading
 To upgrade the CSS in this module, follow the [steps outlined in this repo](https://github.com/stadium-software/samples-upgrading)
