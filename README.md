@@ -8,13 +8,13 @@ https://github.com/stadium-software/multicolumn-checkboxlist/assets/2085324/f4ad
 Sometimes we want to display a checkbox list with a large number of items. Finding and selecting items in such a list is easier for the user. This module displays the CheckBoxlist in as many columns as will fit into it's container. 
 
 ## Version 
-Current version 1.2
-
 1.1 - rewrite from row to column display
 
 1.2 Changed items container selection method to support checkbox list filter module (https://github.com/stadium-software/checkbox-list-filter)
 
-1.2.1 Changed px to rem; updated sample to remove duplicates
+1.2.1 Changed px to rem; updated sample to remove duplicates1.3 In
+
+1.3 Integrated CSS with script
 
 # Setup
 
@@ -26,7 +26,7 @@ Current version 1.2
 2. Drag a *JavaScript* action into the script
 3. Add the Javascript below unchanged into the JavaScript code property
 ```javascript
-/* Stadium Script v1.2 - see https://github.com/stadium-software/multicolumn-checkboxlist */
+/* Stadium Script v1.3 - see https://github.com/stadium-software/multicolumn-checkboxlist */
 let checkboxLists = document.querySelectorAll(".multi-column-display");
 let initialHeight = 34;
 if (checkboxLists) initialHeight = window.getComputedStyle(checkboxLists[0]).getPropertyValue("height").replace("px", "");
@@ -59,7 +59,29 @@ let listsSetup = () => {
         observer.observe(checkBoxList, options);
     }
 };
+loadCSS();
 listsSetup();
+function loadCSS() {
+    let moduleID = "stadium-checkbox-list-columns";
+    if (!document.getElementById(moduleID)) {
+        let cssMain = document.createElement("style");
+        cssMain.id = moduleID;
+        cssMain.type = "text/css";
+        cssMain.textContent = `
+.check-box-list-container.multi-column-display > div.error-border {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: var(--checkboxlist-minimum-height, 3.4rem);
+}
+html {
+    min-height: 100%;
+    font-size: 62.5%;
+}        
+        `;
+        document.head.appendChild(cssMain);
+    }
+}
 window.addEventListener(
     "resize",
     () => {
@@ -78,16 +100,7 @@ window.addEventListener(
 1. Drag the Global Script called "MultiColumnCheckboxList" into the Page.Load event handler
 
 ## Applying the CSS
-The CSS below is required for the correct functioning of the module. Some elements can be [customised](#customising-css) using a variables CSS file. The initial height of the checkbox lists can be defined
-
-**Stadium 6.6 or higher**
-1. Create a folder called "CSS" inside of your Embedded Files in your application
-2. Drag the two CSS files from this repo [*checkboxlist-columns-variables.css*](checkboxlist-columns-variables.css) and [*checkboxlist-columns.css*](checkboxlist-columns.css) into that folder
-3. Paste the link tags below into the *head* property of your application
-```html
-<link rel="stylesheet" href="{EmbeddedFiles}/CSS/checkboxlist-columns.css">
-<link rel="stylesheet" href="{EmbeddedFiles}/CSS/checkboxlist-columns-variables.css">
-``` 
+Some elements can be [customised](#customising-css) using a variables CSS file. The initial height of the checkbox lists can be defined
 
 ## Customising CSS
 1. Open the CSS file called [*checkboxlist-columns-variables.css*](checkboxlist-columns-variables.css) from this repo
